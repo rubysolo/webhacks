@@ -18,8 +18,8 @@ function setBranch() {
   // click on the SelectMenu-item that contains the first found value from defaultReleaseBranches
   findAll(".SelectMenu-item [data-menu-button-text]").forEach(function(n) {
     if (defaultReleaseBranches.includes(n.textContent)) {
-      // found!
-      n.click()
+      n.click();
+      return;
     }
   })
 };
