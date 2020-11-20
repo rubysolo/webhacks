@@ -20,16 +20,20 @@ function noSquashies() {
   // There are 4 commit-ref elements on a PR page in the "`someone` wants to merge X commits into `target` from
   // `source`" section. (One is just under the PR title, the other is a sticky header that shows up if you scroll
   // down the page). The target happens to be the first one, so we can just find this selector and go.
-  var targetBranch = find(".commit-ref").textContent;
+  var targetBranchEl = find(".commit-ref");
 
-  if (noSquashBranches.includes(targetBranch)) {
-    // no squashing here, folks.
+  if (targetBranchEl) {
+    var targetBranch = targetBranchEl.textContent;
 
-    // set the selection to "merge"
-    find(".select-menu-merge-method button[value=merge]").click()
+    if (noSquashBranches.includes(targetBranch)) {
+      // no squashing here, folks.
 
-    // nuke the "squash" button off the face of the planet
-    find(".select-menu-merge-method button[value=squash]").remove()
+      // set the selection to "merge"
+      find(".select-menu-merge-method button[value=merge]").click()
+
+      // nuke the "squash" button off the face of the planet
+      find(".select-menu-merge-method button[value=squash]").remove()
+    }
   }
 };
 
