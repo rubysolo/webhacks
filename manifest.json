@@ -1,0 +1,16 @@
+{
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*pull*"],
+      "js": ["github-pr.js"]
+    },
+    {
+      "matches": ["https://github.com/*releases/new"],
+      "js": ["github-release.js"]
+    }
+  ],
+  "description": "Does the web not look or work the way you like?  Fear not my friend, the web is your oyster!  Inject custom scripts and CSS and make the web *yours*.",
+  "manifest_version": 2,
+  "name": "Hack the Web!",
+  "version": "1"
+}
