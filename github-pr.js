@@ -29,12 +29,29 @@ function noSquashies() {
       // no squashing here, folks.
 
       // set the selection to "merge"
-      find(".select-menu-merge-method button[value=merge]").click()
+      // this should match the normal merge button or the auto-merge button
+      var selectMerge = find(".select-menu-merge-method button[value=merge]")
+      if (selectMerge) {
+        selectMerge.click()
 
-      // nuke the "squash" button off the face of the planet
-      find(".select-menu-merge-method button[value=squash]").remove()
+        // nuke the "squash" button off the face of the planet
+        find(".select-menu-merge-method button[value=squash]").remove()
+      } else {
+        // probably checks are still running, so the UI to select the merge type is disabled.
+        // this is a potential pitfall, because GitHub will enable the UI once checks are complete,
+        // and it will probably default to the "squash" method, if that's the repo default.
+        //
+        // to safeguard against this, we overwrite the whole merge button section with a message
+        // asking the user to refresh after a bit.
+        var mergeMessage = find(".merge-message")
+        if (mergeMessage) {
+          mergeMessage.innerHTML = "Button removed for your protection.  Please refresh when checks are complete."
+          mergeMessage.style.color = "red"
+        }
+      }
     }
   }
 };
 
-noSquashies();
+// Give GitHub JS a chance to do its thing.  Don't click too fast!
+setTimeout(noSquashies, 1500);
